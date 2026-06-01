@@ -17,9 +17,9 @@
       Set "To" = whitneynhelly@gmail.com
    3. Copy your keys into the three lines below:
 */
-const EJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // ← replace
-const EJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // ← replace
-const EJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // ← replace
+const EJS_PUBLIC_KEY  = 'Q3gp8T99TB6-5JEjo';   // ← replace
+const EJS_SERVICE_ID  = 'service_qk62d6t';   // ← replace
+const EJS_TEMPLATE_ID = 'template_o1kmgte';  // ← replace
 const TO_EMAIL        = 'whitneynhelly@gmail.com';
 
 /* ══ THEME ══════════════════════════════════════════════ */
