@@ -4,7 +4,7 @@ const EJS_TEMPLATE_ID = 'template_o1kmgte';
 const TO_EMAIL        = 'whitneynhelly@gmail.com';
 
 /* ══ GEMINI AI CONFIG ════════════════════════════════════*/
-const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY'; // ← replace
+const GEMINI_API_KEY = CONFIG.GEMINI_API_KEY; 
 
 /* ══ THEME ══════════════════════════════════════════════ */
 const html       = document.documentElement;
