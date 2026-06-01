@@ -1,34 +1,9 @@
-/* ═══════════════════════════════════════════════════════
-   Whit's Birthday Gate — script.js
-   ─ Theme toggle (persisted)
-   ─ Floating petals
-   ─ Countdown (single row)
-   ─ Name: letters only, max 25
-   ─ File upload with drag-and-drop + preview
-   ─ AI message assistant (Google Gemini — browser-safe)
-   ─ EmailJS submission → whitneynhelly@gmail.com
-   ═══════════════════════════════════════════════════════ */
-
-/* ══ EMAILJS CONFIG ══════════════════════════════════════
-   One-time setup at https://www.emailjs.com (free):
-   1. Create account → connect Gmail service
-   2. Create template with variables:
-        {{from_name}} {{from_email}} {{wish}} {{memory}} {{attachment_note}}
-      Set "To" = whitneynhelly@gmail.com
-   3. Copy your keys into the three lines below:
-*/
-const EJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // ← replace
-const EJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // ← replace
-const EJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // ← replace
+const EJS_PUBLIC_KEY  = 'Q3gp8T99TB6-5JEjo';   
+const EJS_SERVICE_ID  = 'service_qk62d6t';   
+const EJS_TEMPLATE_ID = 'template_o1kmgte';  
 const TO_EMAIL        = 'whitneynhelly@gmail.com';
 
-/* ══ GEMINI AI CONFIG ════════════════════════════════════
-   Google Gemini works directly from the browser (no CORS block).
-   Get a FREE key in 30 seconds:
-   1. Go to https://aistudio.google.com/app/apikey
-   2. Sign in with any Google account
-   3. Click "Create API Key" → copy it → paste below
-*/
+/* ══ GEMINI AI CONFIG ════════════════════════════════════*/
 const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY'; // ← replace
 
 /* ══ THEME ══════════════════════════════════════════════ */
@@ -136,10 +111,7 @@ function handleFile(f) {
   });
 }
 
-/* ══ AI ASSISTANT (Google Gemini) ═══════════════════════
-   Gemini's API explicitly allows browser/CORS requests,
-   so this works directly from GitHub Pages with no server needed.
-*/
+/* ══ AI ASSISTANT (Google Gemini) ═══════════════════════*/
 const aiTrigger  = document.getElementById('aiTrigger');
 const aiPanel    = document.getElementById('aiPanel');
 const aiClose    = document.getElementById('aiClose');
