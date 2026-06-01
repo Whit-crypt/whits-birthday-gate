@@ -1,5 +1,3 @@
-const fetch = require('node-fetch'); // Built-in for Netlify functions
-
 exports.handler = async function(event, context) {
   // 1. Only allow POST requests (sending data)
   if (event.httpMethod !== "POST") {
