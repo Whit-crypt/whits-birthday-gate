@@ -132,14 +132,7 @@ aiGenerate.addEventListener('click', async () => {
   aiOutput.innerHTML = `<div class="ai-loader"><span></span><span></span><span></span></div>`;
   aiUse.style.display = 'none';
   aiGenerate.disabled = true;
-
-  // Check key is set
-  if (!GEMINI_API_KEY || GEMINI_API_KEY === 'YOUR_GEMINI_API_KEY') {
-    aiOutput.textContent = '⚠️ Please add your Gemini API key in script.js to enable AI suggestions.';
-    aiGenerate.disabled = false;
-    return;
-  }
-
+  
   const prompt = `You are a warm, creative birthday message writer. Write a sincere, personal birthday message for a young woman named Whitney (also called Whit).
 
 Context about the sender: "${ctx || 'A friend who loves and admires her deeply'}"
@@ -153,18 +146,12 @@ Rules:
 - No hashtags, no bullet points
 - Return ONLY the message text, nothing else`;
 
-  try {
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
-      {
+ try {
+    const res = await fetch('/.netlify/functions/generate-wish', {
         method : 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body   : JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: { temperature: 0.85, maxOutputTokens: 300 }
-        })
-      }
-    );
+        body   : JSON.stringify({ prompt: ctx }) // Passes user's hint to your backend
+    });
 
     if (!res.ok) {
       const errData = await res.json().catch(() => ({}));
