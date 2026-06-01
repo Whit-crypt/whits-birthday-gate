@@ -5,7 +5,7 @@
    ─ Countdown (single row)
    ─ Name: letters only, max 25
    ─ File upload with drag-and-drop + preview
-   ─ AI message assistant (Claude API)
+   ─ AI message assistant (Google Gemini — browser-safe)
    ─ EmailJS submission → whitneynhelly@gmail.com
    ═══════════════════════════════════════════════════════ */
 
@@ -17,14 +17,23 @@
       Set "To" = whitneynhelly@gmail.com
    3. Copy your keys into the three lines below:
 */
-const EJS_PUBLIC_KEY  = 'Q3gp8T99TB6-5JEjo';   // ← replace
-const EJS_SERVICE_ID  = 'service_qk62d6t';   // ← replace
-const EJS_TEMPLATE_ID = 'template_o1kmgte';  // ← replace
+const EJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // ← replace
+const EJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // ← replace
+const EJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // ← replace
 const TO_EMAIL        = 'whitneynhelly@gmail.com';
 
+/* ══ GEMINI AI CONFIG ════════════════════════════════════
+   Google Gemini works directly from the browser (no CORS block).
+   Get a FREE key in 30 seconds:
+   1. Go to https://aistudio.google.com/app/apikey
+   2. Sign in with any Google account
+   3. Click "Create API Key" → copy it → paste below
+*/
+const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY'; // ← replace
+
 /* ══ THEME ══════════════════════════════════════════════ */
-const html      = document.documentElement;
-const themeBtn  = document.getElementById('themeToggle');
+const html       = document.documentElement;
+const themeBtn   = document.getElementById('themeToggle');
 const savedTheme = localStorage.getItem('whit-theme') || 'dark';
 html.setAttribute('data-theme', savedTheme);
 
@@ -42,30 +51,26 @@ themeBtn.addEventListener('click', () => {
   function makePetal() {
     const p = document.createElement('div');
     p.className = 'petal';
-    p.style.left          = Math.random() * 100 + 'vw';
-    p.style.top           = '-30px';
-    p.style.background    = colors[Math.floor(Math.random() * colors.length)];
-    p.style.width         = (6 + Math.random() * 10) + 'px';
-    p.style.height        = (10 + Math.random() * 14) + 'px';
-    p.style.animationDuration   = (8 + Math.random() * 12) + 's';
-    p.style.animationDelay      = (Math.random() * 8) + 's';
-    p.style.transform     = 'rotate(' + (Math.random() * 360) + 'deg)';
+    p.style.left              = Math.random() * 100 + 'vw';
+    p.style.top               = '-30px';
+    p.style.background        = colors[Math.floor(Math.random() * colors.length)];
+    p.style.width             = (6 + Math.random() * 10) + 'px';
+    p.style.height            = (10 + Math.random() * 14) + 'px';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay    = (Math.random() * 8) + 's';
+    p.style.transform         = 'rotate(' + (Math.random() * 360) + 'deg)';
     container.appendChild(p);
     setTimeout(() => p.remove(), 22000);
   }
 
-  // Initial burst
   for (let i = 0; i < 18; i++) setTimeout(makePetal, i * 300);
-  // Continuous drip
   setInterval(makePetal, 800);
 })();
 
 /* ══ COUNTDOWN ══════════════════════════════════════════ */
 (function countdown() {
   const target = new Date('2026-06-07T10:00:00');
-
   function pad(n) { return String(n).padStart(2, '0'); }
-
   function tick() {
     const diff = target - Date.now();
     if (diff <= 0) {
@@ -82,7 +87,7 @@ themeBtn.addEventListener('click', () => {
   setInterval(tick, 1000);
 })();
 
-/* ══ NAME — letters only, max 25 ══════════════════════ */
+/* ══ NAME — letters only, max 25 ════════════════════════ */
 const fnameEl = document.getElementById('fname');
 fnameEl.addEventListener('input', () => {
   fnameEl.value = fnameEl.value.replace(/[^a-zA-Z\s]/g, '').slice(0, 25);
@@ -99,7 +104,6 @@ let attachedFile    = null;
 
 uploadTrigger.addEventListener('click', () => fileInput.click());
 uploadZone.addEventListener('click', e => { if (e.target !== uploadTrigger) fileInput.click(); });
-
 uploadZone.addEventListener('dragover',  e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
 uploadZone.addEventListener('dragleave', ()  => uploadZone.classList.remove('drag-over'));
 uploadZone.addEventListener('drop', e => {
@@ -132,7 +136,10 @@ function handleFile(f) {
   });
 }
 
-/* ══ AI ASSISTANT ═══════════════════════════════════════ */
+/* ══ AI ASSISTANT (Google Gemini) ═══════════════════════
+   Gemini's API explicitly allows browser/CORS requests,
+   so this works directly from GitHub Pages with no server needed.
+*/
 const aiTrigger  = document.getElementById('aiTrigger');
 const aiPanel    = document.getElementById('aiPanel');
 const aiClose    = document.getElementById('aiClose');
@@ -147,21 +154,21 @@ aiClose.addEventListener('click',    () => aiPanel.classList.remove('open'));
 
 aiGenerate.addEventListener('click', async () => {
   const ctx = aiContext.value.trim();
+
+  // Show loader
   aiOutput.className = 'ai-output show';
   aiOutput.innerHTML = `<div class="ai-loader"><span></span><span></span><span></span></div>`;
   aiUse.style.display = 'none';
   aiGenerate.disabled = true;
 
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{
-          role: 'user',
-          content: `You are a warm, creative birthday message writer. Write a sincere, personal birthday message for a young woman named Whitney (also called Whit).
+  // Check key is set
+  if (!GEMINI_API_KEY || GEMINI_API_KEY === 'YOUR_GEMINI_API_KEY') {
+    aiOutput.textContent = '⚠️ Please add your Gemini API key in script.js to enable AI suggestions.';
+    aiGenerate.disabled = false;
+    return;
+  }
+
+  const prompt = `You are a warm, creative birthday message writer. Write a sincere, personal birthday message for a young woman named Whitney (also called Whit).
 
 Context about the sender: "${ctx || 'A friend who loves and admires her deeply'}"
 
@@ -169,30 +176,57 @@ Rules:
 - 3 to 5 sentences, heartfelt and personal
 - Use "Whitney" or "Whit" naturally
 - Written in first person ("I")
-- Warm but not over-the-top; genuine
+- Warm but genuine, not over the top
 - End with a joyful birthday wish
 - No hashtags, no bullet points
-- Return ONLY the message, nothing else`
-        }]
-      })
-    });
+- Return ONLY the message text, nothing else`;
+
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        method : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body   : JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { temperature: 0.85, maxOutputTokens: 300 }
+        })
+      }
+    );
+
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      const errMsg  = errData?.error?.message || `API error ${res.status}`;
+      // Friendly messages for common errors
+      if (res.status === 400) throw new Error('Invalid API key. Please check your Gemini key in script.js.');
+      if (res.status === 403) throw new Error('API key not authorised. Make sure it has Gemini access.');
+      if (res.status === 429) throw new Error('Too many requests. Please wait a moment and try again.');
+      throw new Error(errMsg);
+    }
+
     const data = await res.json();
-    const msg  = (data.content || []).map(b => b.text || '').join('').trim();
+    const msg  = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+
     if (msg) {
       aiOutput.textContent = msg;
       aiUse.style.display  = 'inline-block';
     } else {
-      aiOutput.textContent = 'Could not generate a message. Please try again.';
+      aiOutput.textContent = 'No message was returned. Please try again.';
     }
+
   } catch (err) {
-    aiOutput.textContent = 'Something went wrong. Check your connection and try again.';
+    aiOutput.textContent = '⚠️ ' + (err.message || 'Something went wrong. Please try again.');
   }
+
   aiGenerate.disabled = false;
 });
 
 aiUse.addEventListener('click', () => {
   const txt = aiOutput.textContent.trim();
-  if (txt) { fwishEl.value = txt; aiPanel.classList.remove('open'); }
+  if (txt && !txt.startsWith('⚠️')) {
+    fwishEl.value = txt;
+    aiPanel.classList.remove('open');
+  }
 });
 
 /* ══ VALIDATION ═════════════════════════════════════════ */
@@ -253,7 +287,7 @@ submitBtn.addEventListener('click', async () => {
   const wish   = fwishEl.value.trim();
   const memory = document.getElementById('fmemory').value.trim();
   const attachmentNote = attachedFile
-    ? `Attached: ${attachedFile.name} (${(attachedFile.size/1024).toFixed(1)} KB)`
+    ? `Attached: ${attachedFile.name} (${(attachedFile.size / 1024).toFixed(1)} KB)`
     : 'No attachment';
 
   const params = {
@@ -272,7 +306,6 @@ submitBtn.addEventListener('click', async () => {
     showSuccess();
   } catch (err) {
     console.error('EmailJS error:', err);
-    // Graceful fallback — open mail client
     const sub  = encodeURIComponent(`Birthday Wishes from ${name} 🌸`);
     const body = encodeURIComponent(
       `From: ${name} <${email}>\n\nWish:\n${wish}\n\nMemory:\n${memory || '—'}\n\n${attachmentNote}`
@@ -286,9 +319,9 @@ submitBtn.addEventListener('click', async () => {
 });
 
 function showSuccess() {
-  document.getElementById('formCard').style.display  = 'none';
+  document.getElementById('formCard').style.display      = 'none';
   document.querySelector('.wishes-header').style.display = 'none';
   const sc = document.getElementById('successCard');
   sc.style.display = 'flex';
-  sc.scrollIntoView({ behavior:'smooth', block:'center' });
+  sc.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
