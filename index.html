@@ -1,260 +1,216 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Whit's Birthday Gate</title>
-
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap"
-    rel="stylesheet"
-  />
-
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css" />
+  <title>Whit's Birthday Gate 🌸</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-  <!-- Petal container (populated by JS) -->
-  <div id="petals"></div>
+  <!-- Floating petals -->
+  <div class="petals-container" aria-hidden="true" id="petals"></div>
 
-  <!-- ════════════════════════════════════════
-       HERO
-       ════════════════════════════════════════ -->
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <!-- ══════════════════ HERO ══════════════════ -->
   <section class="hero">
+    <div class="hero-bg-layer"></div>
 
-    <!-- Layer 1: Whit's photo background -->
-    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-grid">
+      <!-- Left: Text -->
+      <div class="hero-text">
+        <p class="hero-eyebrow">✦ &nbsp; A Special Celebration &nbsp; ✦</p>
+        <h1 class="hero-title">
+          Happy<br/>
+          <em>Birthday</em><br/>
+          <span class="hero-name">Whitney</span>
+        </h1>
+        <p class="hero-sub">You are loved, treasured, and celebrated. Step through the gate — your people are waiting.</p>
 
-    <!-- Layer 2: blush-rose + gold gradient overlay -->
-    <div class="hero-overlay" aria-hidden="true"></div>
-
-    <!-- Layer 3: content -->
-    <div class="hero-inner">
-
-      <div class="logos">
-        <span>🌸 Whit's Celebration</span>
-        <span class="logo-divider">×</span>
-        <span>Birthday Gate</span>
-      </div>
-
-      <p class="presents">P R E S E N T S</p>
-
-      <!-- Gold hexagon frame around the title -->
-      <div class="hex-frame">
-        <svg viewBox="0 0 360 250" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- Outer hexagon -->
-          <polygon
-            points="105,22 255,22 335,125 255,228 105,228 25,125"
-            stroke="url(#goldGrad)"
-            stroke-width="1.6"
-            fill="none"
-            opacity="0.72"
-          />
-          <!-- Inner hexagon echo -->
-          <polygon
-            points="113,32 247,32 321,125 247,218 113,218 39,125"
-            stroke="url(#goldGrad)"
-            stroke-width="0.6"
-            fill="none"
-            opacity="0.32"
-          />
-          <!-- Corner dots -->
-          <circle cx="105" cy="22"  r="3.5" fill="#e8c97a" opacity="0.7"/>
-          <circle cx="255" cy="22"  r="3.5" fill="#e8c97a" opacity="0.7"/>
-          <circle cx="335" cy="125" r="3.5" fill="#e8c97a" opacity="0.7"/>
-          <circle cx="255" cy="228" r="3.5" fill="#e8c97a" opacity="0.7"/>
-          <circle cx="105" cy="228" r="3.5" fill="#e8c97a" opacity="0.7"/>
-          <circle cx="25"  cy="125" r="3.5" fill="#e8c97a" opacity="0.7"/>
-          <!-- Diamond accents -->
-          <polygon points="105,12 110,22 105,32 100,22" fill="#c9a84c" opacity="0.45"/>
-          <polygon points="255,12 260,22 255,32 250,22" fill="#c9a84c" opacity="0.45"/>
-          <defs>
-            <linearGradient id="goldGrad" x1="0" y1="0" x2="360" y2="250" gradientUnits="userSpaceOnUse">
-              <stop offset="0%"   stop-color="#c9a84c"/>
-              <stop offset="50%"  stop-color="#e8c97a"/>
-              <stop offset="100%" stop-color="#c9a84c"/>
-            </linearGradient>
-          </defs>
-        </svg>
-
-        <h1 class="main-title">Whit's<br>Birthday Gate</h1>
-      </div>
-
-      <div class="subtitle-badge">
-        <span>🌸</span>
-        <span>— A Celebration Challenge —</span>
-        <span>🌸</span>
-      </div>
-
-      <p class="tagline">
-        Where flowers bloom, gold gleams, and the most cherished moments are
-        unlocked only by those who truly know her.
-      </p>
-
-      <!-- Info strip -->
-      <div class="status-strip">
-        <div class="status-item">
-          <span class="status-label">RSVP Opens</span>
-          <span class="status-value">1st June</span>
+        <div class="hero-badges">
+          <div class="badge">
+            <span class="badge-icon">📅</span>
+            <div><span class="badge-label">Date</span><span class="badge-val">7th June 2026</span></div>
+          </div>
+          <div class="badge">
+            <span class="badge-icon">👗</span>
+            <div><span class="badge-label">Dress Code</span><span class="badge-val">Blush &amp; Gold</span></div>
+          </div>
+          <div class="badge">
+            <span class="badge-icon">🏆</span>
+            <div><span class="badge-label">First Guest</span><span class="badge-val">Wins a Prize</span></div>
+          </div>
         </div>
-        <div class="status-divider"></div>
-        <div class="status-item">
-          <span class="status-label">Celebration</span>
-          <span class="status-value">Goes Live 7th June</span>
-        </div>
-        <div class="status-divider"></div>
-        <div class="status-item">
-          <span class="status-label">Dress Code</span>
-          <span class="status-value">Blush &amp; Gold</span>
+
+        <div class="hero-ctas">
+          <a href="#rsvp" class="btn-gold">✦ Send Wishes</a>
+          <a href="https://chat.whatsapp.com/HuqzL12UIGM4FxeH8Mm0sr?mode=gi_t" target="_blank" rel="noopener" class="btn-outline">WhatsApp Group</a>
+          <a href="https://discord.gg/kCjWqjRv" target="_blank" rel="noopener" class="btn-outline">Discord</a>
         </div>
       </div>
 
-      <!-- Prize banner -->
-      <div class="first-blood">
-        <div class="trophy" aria-hidden="true">🏆</div>
-        <p>
-          <strong>First to Celebrate</strong> — The one who shows up first
-          with the biggest smile gets a special prize from the birthday girl herself.
-        </p>
+      <!-- Right: Photo -->
+      <div class="hero-photo-wrap">
+        <div class="photo-ring"></div>
+        <div class="photo-ring ring2"></div>
+        <img src="whit.jpg" alt="Whitney — birthday girl" class="hero-photo" />
+        <div class="photo-badge-float">🌸 Birthday Girl</div>
       </div>
+    </div>
 
-      <!-- CTA buttons -->
-      <div class="cta-group">
-        <a href="#rsvp" class="btn btn-primary">✦ RSVP Now</a>
-        <a href="https://chat.whatsapp.com/" class="btn btn-outline" target="_blank" rel="noopener">Join WhatsApp Group</a>
-        <a href="https://discord.gg/"        class="btn btn-outline" target="_blank" rel="noopener">Join Discord</a>
-      </div>
-
-    </div><!-- /.hero-inner -->
+    <!-- Scroll indicator -->
+    <div class="scroll-hint" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
   </section>
 
-  <!-- ════════════════════════════════════════
-       COUNTDOWN
-       ════════════════════════════════════════ -->
+  <!-- ══════════════════ COUNTDOWN ══════════════════ -->
   <section class="countdown-section">
-    <p class="section-eyebrow">⏳ The Gate Opens</p>
-    <h2 class="section-title">The Celebration Begins In</h2>
-
-    <div class="clock" aria-live="polite" aria-label="Countdown timer">
-      <div class="clock-unit">
-        <span class="clock-number" id="days">00</span>
-        <span class="clock-label">Days</span>
+    <div class="cd-inner">
+      <p class="section-eyebrow">⏳ &nbsp; The Gate Opens In</p>
+      <div class="countdown-row" id="countdown">
+        <div class="cd-block">
+          <span class="cd-num" id="cd-days">00</span>
+          <span class="cd-label">Days</span>
+        </div>
+        <span class="cd-sep">:</span>
+        <div class="cd-block">
+          <span class="cd-num" id="cd-hours">00</span>
+          <span class="cd-label">Hours</span>
+        </div>
+        <span class="cd-sep">:</span>
+        <div class="cd-block">
+          <span class="cd-num" id="cd-mins">00</span>
+          <span class="cd-label">Mins</span>
+        </div>
+        <span class="cd-sep">:</span>
+        <div class="cd-block">
+          <span class="cd-num" id="cd-secs">00</span>
+          <span class="cd-label">Secs</span>
+        </div>
       </div>
-      <span class="clock-sep" aria-hidden="true">:</span>
-      <div class="clock-unit">
-        <span class="clock-number" id="hours">00</span>
-        <span class="clock-label">Hours</span>
-      </div>
-      <span class="clock-sep" aria-hidden="true">:</span>
-      <div class="clock-unit">
-        <span class="clock-number" id="minutes">00</span>
-        <span class="clock-label">Minutes</span>
-      </div>
-      <span class="clock-sep" aria-hidden="true">:</span>
-      <div class="clock-unit">
-        <span class="clock-number" id="seconds">00</span>
-        <span class="clock-label">Seconds</span>
-      </div>
+      <p class="cd-subtitle">7th June 2026 · 10:00 AM · Blush &amp; Gold</p>
     </div>
-
-    <p class="countdown-date">7th June 2026 — 10:00 AM</p>
   </section>
 
-  <!-- ════════════════════════════════════════
-       RSVP / BIRTHDAY WISHES FORM
-       ════════════════════════════════════════ -->
-  <section class="form-section" id="rsvp">
-    <p class="section-flag-icon" aria-hidden="true">🌸</p>
-    <p class="section-eyebrow">⚑ Send Your Wishes</p>
-    <h2 class="section-title" style="color: var(--burgundy);">Leave a Birthday Message</h2>
-    <div class="floral-divider"><span aria-hidden="true">✿</span></div>
+  <!-- ══════════════════ WISHES FORM ══════════════════ -->
+  <section class="wishes-section" id="rsvp">
+    <div class="wishes-inner">
 
-    <!-- Form card -->
-    <div class="form-card" id="formCard">
-
-      <div class="form-group">
-        <label for="fullname">Full Name <span class="req" aria-hidden="true">*</span></label>
-        <input
-          type="text"
-          id="fullname"
-          name="fullname"
-          placeholder="Your beautiful name"
-          autocomplete="name"
-          aria-required="true"
-        />
-        <p class="field-hint" id="nameHint" role="alert">Please enter your full name.</p>
+      <div class="wishes-header">
+        <p class="section-eyebrow">💌 &nbsp; Wishes &amp; RSVP</p>
+        <h2 class="section-title">Leave a <em>Message</em><br/>for Whitney</h2>
+        <p class="section-sub">She'll read every single word. Make it count. 🌸</p>
       </div>
 
-      <div class="form-group">
-        <label for="email">Email Address <span class="req" aria-hidden="true">*</span></label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="your@email.com"
-          autocomplete="email"
-          aria-required="true"
-        />
-        <p class="field-hint" id="emailHint" role="alert">Please enter a valid email address.</p>
+      <!-- Form Card -->
+      <div class="form-card" id="formCard">
+
+        <div class="form-row">
+          <!-- Name -->
+          <div class="field-group">
+            <label for="fname">Full Name <span class="req">*</span></label>
+            <input type="text" id="fname" placeholder="Your name…" maxlength="25" autocomplete="off" />
+            <span class="field-hint">Letters only · max 25 characters</span>
+            <span class="field-err" id="fname-err"></span>
+          </div>
+          <!-- Email -->
+          <div class="field-group">
+            <label for="femail">Email Address <span class="req">*</span></label>
+            <input type="email" id="femail" placeholder="you@example.com" autocomplete="email" />
+            <span class="field-err" id="femail-err"></span>
+          </div>
+        </div>
+
+        <!-- Wish with AI -->
+        <div class="field-group">
+          <label for="fwish">Birthday Wish <span class="req">*</span></label>
+          <div class="textarea-wrap">
+            <textarea id="fwish" placeholder="Write your birthday wish for Whit…" rows="4"></textarea>
+            <button type="button" class="ai-trigger" id="aiTrigger">
+              <span>✨</span> AI Help
+            </button>
+          </div>
+          <span class="field-err" id="fwish-err"></span>
+        </div>
+
+        <!-- AI Panel -->
+        <div class="ai-panel" id="aiPanel">
+          <div class="ai-panel-top">
+            <span class="ai-panel-title">✨ &nbsp; AI Message Assistant</span>
+            <button class="ai-x" id="aiClose">✕</button>
+          </div>
+          <p class="ai-hint">Tell me how you know Whitney or what she means to you — I'll write a heartfelt message for you.</p>
+          <textarea id="aiContext" placeholder="e.g. We're classmates, she's always making everyone laugh…" rows="3"></textarea>
+          <button class="btn-gold ai-go" id="aiGenerate">✦ Generate Message</button>
+          <div class="ai-output" id="aiOutput"></div>
+          <button class="btn-outline ai-use-btn" id="aiUse" style="display:none">↑ Use This Message</button>
+        </div>
+
+        <!-- Memory -->
+        <div class="field-group">
+          <label for="fmemory">A Favourite Memory <span class="optional">(optional)</span></label>
+          <textarea id="fmemory" placeholder="Share a special moment you shared with Whit…" rows="3"></textarea>
+        </div>
+
+        <!-- File Upload -->
+        <div class="field-group">
+          <label>Attach a Photo / File <span class="optional">(optional · max 10 MB)</span></label>
+          <div class="upload-zone" id="uploadZone">
+            <input type="file" id="fileInput" accept="image/*,video/*,.pdf,.gif" hidden />
+            <div class="upload-idle" id="uploadIdle">
+              <span class="upload-ico">📎</span>
+              <p>Drag &amp; drop or <button type="button" id="uploadTrigger" class="upload-link">browse</button></p>
+              <p class="upload-sub">Images, videos, GIFs, PDFs</p>
+            </div>
+            <div class="upload-preview" id="uploadPreview" style="display:none"></div>
+          </div>
+          <span class="field-err" id="ffile-err"></span>
+        </div>
+
+        <button class="btn-submit" id="submitBtn">✦ &nbsp; SEND MY WISHES &nbsp; ✦</button>
       </div>
 
-      <div class="form-group">
-        <label for="wish">Birthday Wish <span class="req" aria-hidden="true">*</span></label>
-        <input
-          type="text"
-          id="wish"
-          name="wish"
-          placeholder="Write a heartfelt wish for Whit…"
-          aria-required="true"
-        />
-        <p class="field-hint" id="wishHint" role="alert">Please enter your birthday wish.</p>
+      <!-- Success -->
+      <div class="success-card" id="successCard" style="display:none">
+        <img src="bg.jpg" alt="" class="success-bg-img" />
+        <div class="success-body">
+          <p class="success-emoji">🌸</p>
+          <h3>Wishes Delivered!</h3>
+          <p>Your love has been sent straight to Whitney's heart. She'll treasure every word. See you at the party!</p>
+          <a href="https://discord.gg/kCjWqjRv" class="btn-gold" target="_blank" rel="noopener">Join Discord for Updates</a>
+        </div>
       </div>
 
-      <div class="form-group">
-        <label for="memory">A Favourite Memory with Whit</label>
-        <input
-          type="text"
-          id="memory"
-          name="memory"
-          placeholder="Share a sweet memory…"
-        />
-      </div>
-
-      <button class="btn-submit" onclick="submitForm()">✦ SEND WISHES ✦</button>
-    </div><!-- /.form-card -->
-
-    <!-- Success state -->
-    <div class="success-card" id="successCard" aria-live="polite">
-      <div class="success-icon" aria-hidden="true">🌸</div>
-      <h3>Wishes Received!</h3>
-      <p>
-        Your love and wishes have been delivered to Whit.
-        She'll treasure every word. See you at the celebration!
-      </p>
-      <a href="https://discord.gg/" class="btn btn-primary" target="_blank" rel="noopener">
-        Join Discord for Updates
-      </a>
     </div>
-
   </section>
 
-  <!-- ════════════════════════════════════════
-       FOOTER
-       ════════════════════════════════════════ -->
-  <footer>
-    <p class="section-eyebrow" style="margin-bottom:1.5rem;">Our Socials</p>
-    <nav class="socials" aria-label="Social media links">
+  <!-- ══════════════════ FOOTER ══════════════════ -->
+  <footer class="site-footer">
+    <div class="footer-photo-strip">
+      <img src="whit.jpg" alt="Whitney" class="footer-photo" />
+      <div class="footer-phrase">
+        <p class="footer-name">Whitney</p>
+        <p class="footer-tagline">Celebrated &amp; Cherished ✦ June 7, 2026</p>
+      </div>
+    </div>
+    <div class="footer-links">
       <a href="https://www.instagram.com/w_hit.ney" target="_blank" rel="noopener">Instagram</a>
+      <span class="dot">·</span>
       <a href="https://chat.whatsapp.com/HuqzL12UIGM4FxeH8Mm0sr?mode=gi_t" target="_blank" rel="noopener">WhatsApp</a>
+      <span class="dot">·</span>
       <a href="https://discord.gg/kCjWqjRv" target="_blank" rel="noopener">Discord</a>
-    </nav>
-    <p class="footer-copy">Whit's Birthday Gate &copy; 2026 — A celebration crafted with love 🌸</p>
+    </div>
+    <p class="footer-copy">Whit's Birthday Gate © 2026 — A celebration crafted with love 🌸</p>
   </footer>
 
-  <!-- JavaScript (loaded last so DOM is ready) -->
-  <script src="js/main.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
