@@ -1,5 +1,3 @@
-const fetch = require('node-fetch'); // Built-in for Netlify functions
-
 exports.handler = async function(event, context) {
   // 1. Only allow POST requests (sending data)
   if (event.httpMethod !== "POST") {
@@ -28,21 +26,19 @@ exports.handler = async function(event, context) {
     });
 
     const data = await googleResponse.json();
-    
-    // 5. Extract the generated text from Gemini's response structure
-    const aiMessage = data.candidates[0].content.parts[0].text;
 
-    // 6. Send the beautiful message back to your script.js
+    // Pass through Gemini's response (success or error) so the frontend can parse it directly
     return {
-      statusCode: 200,
+      statusCode: googleResponse.status,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: aiMessage })
+      body: JSON.stringify(data)
     };
 
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: error.message })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ error: { message: error.message } })
     };
   }
 };
