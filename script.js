@@ -132,7 +132,7 @@ aiGenerate.addEventListener('click', async () => {
   aiOutput.innerHTML = `<div class="ai-loader"><span></span><span></span><span></span></div>`;
   aiUse.style.display = 'none';
   aiGenerate.disabled = true;
-  
+
   const prompt = `You are a warm, creative birthday message writer. Write a sincere, personal birthday message for a young woman named Whitney (also called Whit).
 
 Context about the sender: "${ctx || 'A friend who loves and admires her deeply'}"
@@ -146,21 +146,24 @@ Rules:
 - No hashtags, no bullet points
 - Return ONLY the message text, nothing else`;
 
- try {
-    const res = await fetch('/.netlify/functions/generate-wish', {
-        method : 'POST',
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${CONFIG.GEMINI_API_KEY}`,
+      {
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body   : JSON.stringify({ prompt: ctx }) // Passes user's hint to your backend
-    });
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }]
+        })
+      }
+    );
 
     if (!res.ok) {
       const errData = await res.json().catch(() => ({}));
-      const errMsg  = errData?.error?.message || `API error ${res.status}`;
-      // Friendly messages for common errors
-      if (res.status === 400) throw new Error('Invalid API key. Please check your Gemini key in script.js.');
+      if (res.status === 400) throw new Error('Invalid API key. Check your config.js.');
       if (res.status === 403) throw new Error('API key not authorised. Make sure it has Gemini access.');
       if (res.status === 429) throw new Error('Too many requests. Please wait a moment and try again.');
-      throw new Error(errMsg);
+      throw new Error(errData?.error?.message || `API error ${res.status}`);
     }
 
     const data = await res.json();
@@ -187,6 +190,8 @@ aiUse.addEventListener('click', () => {
     aiPanel.classList.remove('open');
   }
 });
+ 
+
 
 /* ══ VALIDATION ═════════════════════════════════════════ */
 function validate() {
